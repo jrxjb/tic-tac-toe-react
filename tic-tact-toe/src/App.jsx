@@ -3,12 +3,25 @@ import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
 
-function App() {
-  const [count, setCount] = useState(0)
 
+const TURNS ={
+  X:'X',
+  O:'O'
+}
+
+const board = Array(9).fill(null)
+function App() {
+  
   return (
     <>
-    <h1>Tic tac toe</h1>
+   <main className='board'>
+    <h1>Tic tac toe</h1> 
+   { board.map((_,index) =>{
+    return (
+ <div key={index}>{index}</div>
+  )}
+)}
+  </main>
     </>
   )
 }
