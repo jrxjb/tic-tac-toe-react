@@ -11,24 +11,30 @@ const TURNS ={
 
 //const board = Array(9).fill(null)
 //Resultado: [null, null, null, null, null, null, null, null, null]
-const board = Array(9).fill(null)
+//const board = Array(9).fill(null)
 
 
 function App() {
-  const [turn,setTurn]=useState(TURNS.X);
+  const [turn,setTurn]=useState("");
+  const [board,setBoard]=useState(Array(9).fill(null))
 
-  function updateBoard(){
-  console.log("hizo click en span");
+  function updateBoard(index){
+  console.log(`hizo click en span ${index}`);
 
   const updateTurn = turn === TURNS.X? TURNS.O : TURNS.X;
-  setTurn(updateTurn);
+  setTurn(updateTurn)
+  const newBoard = [...board]
+  newBoard[index] = updateTurn
+  setBoard(newBoard)
+  
+
 }
   return (
     <>
       <div className="board-medio">
         {
           board.map((contenidoB,index)=>{
-            return (<span key={index}  className="square" onClick={updateBoard}>{contenidoB}{turn}</span>)
+            return (<span key={index}  className="square" onClick={() => updateBoard(index)}>{contenidoB}</span>)
           })
         }
         </div>
