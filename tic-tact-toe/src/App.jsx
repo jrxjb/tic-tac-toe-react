@@ -9,19 +9,37 @@ const TURNS ={
   O:'O'
 }
 
+//const board = Array(9).fill(null)
+//Resultado: [null, null, null, null, null, null, null, null, null]
 const board = Array(9).fill(null)
+
+
 function App() {
-  
+  const [turn,setTurn]=useState(TURNS.X);
+
+  function updateBoard(){
+  console.log("hizo click en span");
+
+  const updateTurn = turn === TURNS.X? TURNS.O : TURNS.X;
+  setTurn(updateTurn);
+}
   return (
     <>
-   <main className='board'>
-    <h1>Tic tac toe</h1> 
-   { board.map((_,index) =>{
-    return (
- <div key={index}>{index}</div>
-  )}
-)}
-  </main>
+      <div className="board-medio">
+        {
+          board.map((contenidoB,index)=>{
+            return (<span key={index}  className="square" onClick={updateBoard}>{contenidoB}{turn}</span>)
+          })
+        }
+        </div>
+        <div className="box-turns">
+         <h4>Turnos</h4>
+        <section className="turns">
+          <div onClick="isSelected">{TURNS.O}</div>
+          <div>{TURNS.X}</div>
+        </section>
+        </div>
+      
     </>
   )
 }
