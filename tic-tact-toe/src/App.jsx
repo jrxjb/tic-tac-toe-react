@@ -4,6 +4,7 @@ import viteLogo from '/vite.svg'
 import './App.css'
 import GetWinner from './components/ganador'
 import ResetBoard from './components/resetBoard'
+import confetti from "canvas-confetti"
 
 
 
@@ -34,7 +35,7 @@ function App() {
 
   function updateBoard(index){
       console.log(`hizo click en span ${index}`);
-      if(board[index] !==null) return
+      if(board[index] !==null||(winner)) return
       const updateTurn = turn === TURNS.X? TURNS.O : TURNS.X;
       setTurn(updateTurn)
       const newBoard = [...board]
@@ -56,6 +57,7 @@ function App() {
             newBoard[combos[0]][0]===newBoard[combos[1]]&&
             newBoard[combos[0]]===newBoard[combos[2]]){
               setWinner(newBoard[combos[0]])
+              confetti()
             }
 
         }
@@ -63,8 +65,10 @@ function App() {
     }
     function cleanBoard(){
       setBoard(Array(9).fill(null));
+      setWinner("");
     }
     return (
+    <main className='body-structure'>
     <div>
       <div className="board-medio">
         {
@@ -73,6 +77,10 @@ function App() {
           })
         }
         </div>
+          <ResetBoard resetBoardF={cleanBoard}/>
+      </div>
+      <div className='left-part'>
+       
         <div className="box-turns">
          <h4>Turnos</h4>
         <section className="turns">
@@ -81,9 +89,8 @@ function App() {
         </section>
         </div>
         <GetWinner texto={winner}/>
-        <ResetBoard resetBoardF={cleanBoard}/>
-
-    </div>
+      </div>
+    </main>
   )
 }
 

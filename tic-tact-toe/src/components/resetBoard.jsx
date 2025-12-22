@@ -1,7 +1,7 @@
 function ResetBoard({resetBoardF}){
     return(
         <button onClick={resetBoardF}>
-            reset board 
+            reset
         </button>
     )
 }

@@ -2,7 +2,21 @@
   max-width: 1280px;
   margin: 0 auto;
   padding: 2rem;
+
   text-align: center;
+}
+
+.body-structure{
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+
+}
+
+.left-part{
+  display:flex;
+  flex-direction:column;
+  align-items:flex-start;
 }
 
 
