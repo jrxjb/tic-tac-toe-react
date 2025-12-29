@@ -8,6 +8,7 @@ import confetti from "canvas-confetti"
 
 
 
+
 const TURNS ={
   X:'X',
   O:'O'
@@ -29,8 +30,17 @@ const winner_combos = [
 
 
 function App() {
-  const [turn,setTurn]=useState("");
-  const [board,setBoard]=useState(Array(9).fill(null))
+  const [turn,setTurn]=useState(()=>{
+    const turnFromStorage = window.localStorage.getItem('turn')
+    if(turnFromStorage)return JSON.parse(turnFromStorage)
+      else return ''
+  })
+
+  const [board,setBoard]=useState( ()=>{
+    const boardFromLocalStorage= window.localStorage.getItem('board')
+    if(boardFromLocalStorage)return JSON.parse(boardFromLocalStorage)
+      else return Array(9).fill(null) })   
+
   const [winner,setWinner] = useState('')
 
   function updateBoard(index){
@@ -41,6 +51,8 @@ function App() {
       const newBoard = [...board]
       newBoard[index] = updateTurn
       setBoard(newBoard)
+      window.localStorage.setItem('board',JSON.stringify(newBoard))
+      window.localStorage.setItem('turn',JSON.stringify(updateTurn))
       // revision de ganadores
       /*for(const combo of winner_combos){
         const[a,b,c]=combo
@@ -66,10 +78,12 @@ function App() {
     function cleanBoard(){
       setBoard(Array(9).fill(null));
       setWinner("");
+      window.localStorage.removeItem('board')
+      window.localStorage.removeItem('turn')
     }
     return (
     <main className='body-structure'>
-    <div>
+    <div className='box-up-board-medio'>
       <div className="board-medio">
         {
           board.map((contenidoB,index)=>{
@@ -80,12 +94,13 @@ function App() {
           <ResetBoard resetBoardF={cleanBoard}/>
       </div>
       <div className='left-part'>
-       
-        <div className="box-turns">
-         <h4>Turnos</h4>
+        <div className='box-turns'>
+        <div>
+         Turnos
+         </div>
         <section className="turns">
-          <div onClick="isSelected">{TURNS.O}</div>
-          <div>{TURNS.X}</div>
+          <div >{TURNS.O}</div>
+          <div >{TURNS.X}</div>
         </section>
         </div>
         <GetWinner texto={winner}/>
