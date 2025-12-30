@@ -1,4 +1,1 @@
-terminar quien es el ganador
-terminar colores 
-agregar al localStorage  listo 
 instarlar standar js

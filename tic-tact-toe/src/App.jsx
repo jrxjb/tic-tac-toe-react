@@ -41,10 +41,15 @@ function App() {
     if(boardFromLocalStorage)return JSON.parse(boardFromLocalStorage)
       else return Array(9).fill(null) })   
 
-  const [winner,setWinner] = useState('')
+  const [winner,setWinner] = useState(()=>{
+    const winnerFromStorage= window.localStorage.getItem('winner')
+    if(winnerFromStorage) return JSON.parse(winnerFromStorage)
+    else return null
+})
 
   function updateBoard(index){
       console.log(`hizo click en span ${index}`);
+      window.localStorage.setItem('winner',JSON.stringify(winner));
       if(board[index] !==null||(winner)) return
       const updateTurn = turn === TURNS.X? TURNS.O : TURNS.X;
       setTurn(updateTurn)
