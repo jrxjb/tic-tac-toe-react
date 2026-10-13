@@ -58,6 +58,8 @@ background-color:#2c2c54;
   color: #ffffff;
   cursor: pointer;
   transition: background 0.3s ease;
+
+  overflow: hidden;
 }
 
 .square:hover {
@@ -120,6 +122,7 @@ gap:5px;
   background: linear-gradient(135deg, #ff006e, #ff9f1c);
   cursor: pointer;
   transition: transform 0.2s ease;
+  overflow: hidden;
 
 
 }
