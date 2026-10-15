@@ -41,7 +41,6 @@ function App () {
 
   function updateBoard (index) {
     console.log(`hizo click en span ${index}`)
-    window.localStorage.setItem('winner', JSON.stringify(winner))
     if (board[index] !== null || (winner)) return
     const updateTurn = turn === TURNS.X ? TURNS.O : TURNS.X
     setTurn(updateTurn)
@@ -56,15 +55,20 @@ function App () {
       if (newBoard[combos[0]] &&
             newBoard[combos[0]] === newBoard[combos[1]] &&
             newBoard[combos[0]] === newBoard[combos[2]]) {
-        setWinner(newBoard[combos[0]])
-        confetti()
+            const ganador = newBoard[combos[0]]                        
+            setWinner(ganador)                                         
+            localStorage.setItem('winner', JSON.stringify(ganador)) 
+            confetti()
         return
       }
     }
     if (newBoard[0] && newBoard[1] && newBoard[2] && newBoard[3] && newBoard[4] &&
       newBoard[5] && newBoard[6] && newBoard[7] && newBoard[8]) {
       console.log('LLeno y nade gano')
-      return (setWinner('la vieja'))
+      const ganadorVieja="La vieja"
+      setWinner(ganadorVieja)
+      localStorage.setItem('winner', JSON.stringify(ganadorVieja)) 
+      return
     }
   }
   function cleanBoard () {
@@ -73,6 +77,7 @@ function App () {
     window.localStorage.removeItem('board')
     window.localStorage.removeItem('turn')
     window.localStorage.removeItem('winner')
+    setTurn('')
   }
   return (
     <main className='body-structure'>
@@ -95,7 +100,7 @@ function App () {
             <div>{TURNS.X}</div>
           </section>
         </div>
-        <GetWinner texto={winner} />
+        <GetWinner   texto={winner} turn={turn}/>
       </div>
     </main>
   )
