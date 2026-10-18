@@ -30,7 +30,6 @@ function App () {
   })
 
   function updateBoard (index) {
-    console.log(`hizo click en span ${index}`)
     if (board[index] !== null || (winner)) return
     const updateTurn = turn === TURNS.X ? TURNS.O : TURNS.X
     setTurn(updateTurn)
