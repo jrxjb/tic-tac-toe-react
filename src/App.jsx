@@ -3,22 +3,12 @@ import './App.css'
 import GetWinner from './components/ganador'
 import ResetBoard from './components/resetBoard'
 import confetti from 'canvas-confetti'
-
+import {checkWinner, isDraw} from './game'
 const TURNS = {
   X: 'X',
   O: 'O'
 }
 
-const winnerCombos = [
-  [0, 1, 2],
-  [3, 4, 5],
-  [6, 7, 8],
-  [0, 3, 6],
-  [1, 4, 7],
-  [2, 5, 8],
-  [0, 4, 8],
-  [2, 4, 6]
-]
 
 function App () {
   const [turn, setTurn] = useState(() => {
@@ -50,21 +40,17 @@ function App () {
     window.localStorage.setItem('board', JSON.stringify(newBoard))
     window.localStorage.setItem('turn', JSON.stringify(updateTurn))
 
-    for (let i = 0; i < winnerCombos.length; i++) {
-      const combos = winnerCombos[i]
-      if (newBoard[combos[0]] &&
-            newBoard[combos[0]] === newBoard[combos[1]] &&
-            newBoard[combos[0]] === newBoard[combos[2]]) {
-            const ganador = newBoard[combos[0]]                        
+     const ganador = checkWinner(newBoard) 
+
+      if (ganador) {                       
             setWinner(ganador)                                         
             localStorage.setItem('winner', JSON.stringify(ganador)) 
             confetti()
         return
       }
-    }
-    if (newBoard[0] && newBoard[1] && newBoard[2] && newBoard[3] && newBoard[4] &&
-      newBoard[5] && newBoard[6] && newBoard[7] && newBoard[8]) {
-      console.log('LLeno y nade gano')
+    
+    const ganoLavieja = isDraw(newBoard) 
+    if (ganoLavieja) {
       const ganadorVieja="La vieja"
       setWinner(ganadorVieja)
       localStorage.setItem('winner', JSON.stringify(ganadorVieja)) 
