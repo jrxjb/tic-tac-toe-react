@@ -30,7 +30,12 @@ npm run deploy   # build + publica en GitHub Pages (rama gh-pages)
 
 ## Capturas
 
-<!-- Pegar aquí las 4 capturas: tablero en juego · victoria · empate · recarga tras ganar -->
+| Tablero en juego | Victoria | Recarga tras ganar | Empate |
+| :---: | :---: | :---: | :---: |
+| ![Tablero en juego con el turno de X](./images/1-tablero.png) | ![Victoria de X con confeti](./images/2-victoria.png) | ![Tras recargar la página el ganador sigue en pantalla](./images/3-recarga.png) | ![Empate: tablero lleno sin ganador](./images/4-empate.png) |
+
+Las capturas 2 y 3 son la misma partida: la 3 es después de recargar (F5). El ganador
+persiste y el confeti no se vuelve a disparar.
 
 ## Decisiones técnicas
 
@@ -39,6 +44,5 @@ npm run deploy   # build + publica en GitHub Pages (rama gh-pages)
 - **Lógica pura separada en `src/game.js`** (`checkWinner` / `isDraw`), sin React,
   testeable en Node puro → `my-tests.js` con el test runner nativo (5 tests).
 - **Detección de ganador por combinaciones** (8 filas/columnas/diagonales).
-- **Un solo linter (ESLint)** — se eliminó `standard` por duplicarse y contradecirse.
 - **Deploy en GitHub Pages** con `base: '/tic-tac-toe-react/'` en `vite.config.js`
   y rama `gh-pages` (`npm run deploy`).
