@@ -15,8 +15,8 @@ export function checkWinner(newBoard){
       if (newBoard[combos[0]] &&
             newBoard[combos[0]] === newBoard[combos[1]] &&
             newBoard[combos[0]] === newBoard[combos[2]]) {
-            const ganador = newBoard[combos[0]]                        
-        return ganador
+            const winner = newBoard[combos[0]]                        
+        return winner
       }
     }
     return null

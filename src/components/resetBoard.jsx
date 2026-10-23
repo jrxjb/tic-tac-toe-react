@@ -1,9 +1,9 @@
 import '../App.css'
 
-function ResetBoard ({ resetBoardF }) {
+function ResetBoard ({ onReset }) {
   return (
-    <button className='button-reset-board' onClick={resetBoardF}>
-      reset
+    <button className='button-reset-board' onClick={onReset}>
+      Reset
     </button>
   )
 }

@@ -2,7 +2,7 @@ import { test } from 'node:test'
 import assert from 'node:assert/strict'
 import { checkWinner, isDraw } from './src/game.js'            
 
-test('checkWinner nobody loss', () => {
+test('checkWinner: no winner on a full board', () => {
 const newBoard = ['X', 'O', 'X', 'O', 'O', 'X', 'X', 'X', 'O']
   assert.strictEqual(checkWinner(newBoard), null)      
 })
@@ -16,12 +16,11 @@ test('checkWinner win O', () => {
 })
 
 
-
-test('isDraw: lleno sin ganador => true', () => {
+test('isDraw: full board without a winner => true', () => {
   assert.strictEqual(isDraw( ['X', 'O', 'X', 'O', 'O', 'X', 'X', 'X', 'O']), true)      
 })
 
 
-test('isDraw: lleno con ganador => false', () => {
+test('isDraw: with a winner => false', () => {
   assert.strictEqual(isDraw(['X', 'X', 'X', 'O', 'O', 'X', 'O', 'X', 'O']), false)
 })

@@ -1,48 +1,50 @@
 # Tic-Tac-Toe — React
 
-**▶ En vivo: https://jrxjb.github.io/tic-tac-toe-react/**
+**▶ Live: https://jrxjb.github.io/tic-tac-toe-react/**
 
-Clásico tic-tac-toe (3 en línea) para dos jugadores en el navegador. La partida se
-guarda en `localStorage`: si recargás la página, el tablero, el turno y el ganador
-se mantienen.
+Classic two-player tic-tac-toe in the browser. The game is saved to `localStorage`:
+reload the page and the board, the turn and the winner are still there.
 
 ## Stack
 
 - **React 19.2** + **Vite 7.2.4**
-- **canvas-confetti 1.9.4** (confeti al ganar)
-- **ESLint 9** (linter único) · **Node test runner** (`node:test`) para tests
+- **canvas-confetti 1.9.4** (confetti on win)
+- **ESLint 9** (single linter) · **Node test runner** (`node:test`) for tests
 
-## Por qué lo hice
+## Why I built it
 
-Proyecto de mi portafolio para practicar estado en React con persistencia real:
-separar la lógica del juego de la vista, detectar ganador/empate y que el estado
-sobreviva a una recarga. Es también mi primer proyecto con tests unitarios.
+A portfolio project to practise React state with real persistence: keeping the game
+logic separate from the view, detecting a winner/draw, and making the state survive a
+reload. It is also my first project with unit tests.
 
-## Cómo correrlo
+## Getting started
 
 ```bash
 npm install
-npm run dev      # desarrollo → http://localhost:5173/tic-tac-toe-react/
-npm test         # 5 tests (lógica pura del juego)
+npm run dev      # dev server → http://localhost:5173/tic-tac-toe-react/
+npm test         # 5 tests (pure game logic)
 npm run lint     # ESLint
-npm run deploy   # build + publica en GitHub Pages (rama gh-pages)
+npm run deploy   # build + publish to GitHub Pages (gh-pages branch)
 ```
 
-## Capturas
-
-| Tablero en juego | Victoria | Recarga tras ganar | Empate |
+## Screenshots
+| Game in progress | Win | Reload after winning | Draw |
 | :---: | :---: | :---: | :---: |
-| ![Tablero en juego con el turno de X](./images/1-tablero.png) | ![Victoria de X con confeti](./images/2-victoria.png) | ![Tras recargar la página el ganador sigue en pantalla](./images/3-recarga.png) | ![Empate: tablero lleno sin ganador](./images/4-empate.png) |
+| ![Game in progress, X's turn](./images/1-board.png) | ![X wins with confetti](./images/2-win.png) | ![After reloading, the winner is still on screen](./images/3-reload.png) | ![Draw: full board with no winner](./images/4-draw.png) |
 
-Las capturas 2 y 3 son la misma partida: la 3 es después de recargar (F5). El ganador
-persiste y el confeti no se vuelve a disparar.
+Screenshots 2 and 3 are the same game: 3 is after a reload (F5). The winner persists
+and the confetti does not fire again.
 
-## Decisiones técnicas
+## Technical decisions
+- **State with `localStorage` and lazy initializers** (`useState(() => ...)`) —
+  read once on mount, no extra render.
+- **Pure logic separated in `src/game.js`** (`checkWinner` / `isDraw`), no React,
+  testable in plain Node → `my-tests.js` with the native test runner (5 tests).
+- **Winner detection by combinations** (8 rows/columns/diagonals).
+- **Deploy to GitHub Pages** with `base: '/tic-tac-toe-react/'` in `vite.config.js`
+  and a `gh-pages` branch (`npm run deploy`).
+- **Auto-translate blocked on purpose**: `<div id="root" translate="no">` + `lang="en"`.
 
-- **Estado con `localStorage` e inicializadores lazy** (`useState(() => ...)`) —
-  se lee una sola vez al montar, sin render extra.
-- **Lógica pura separada en `src/game.js`** (`checkWinner` / `isDraw`), sin React,
-  testeable en Node puro → `my-tests.js` con el test runner nativo (5 tests).
-- **Detección de ganador por combinaciones** (8 filas/columnas/diagonales).
-- **Deploy en GitHub Pages** con `base: '/tic-tac-toe-react/'` en `vite.config.js`
-  y rama `gh-pages` (`npm run deploy`).
+## License
+
+MIT — see [LICENSE](./LICENSE).

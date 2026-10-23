@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import './App.css'
-import GetWinner from './components/ganador'
+import GetWinner from './components/getWinner'
 import ResetBoard from './components/resetBoard'
 import confetti from 'canvas-confetti'
 import {checkWinner, isDraw} from './game'
@@ -39,20 +39,20 @@ function App () {
     window.localStorage.setItem('board', JSON.stringify(newBoard))
     window.localStorage.setItem('turn', JSON.stringify(updateTurn))
 
-     const ganador = checkWinner(newBoard) 
+     const foundWinner = checkWinner(newBoard) 
 
-      if (ganador) {                       
-            setWinner(ganador)                                         
-            localStorage.setItem('winner', JSON.stringify(ganador)) 
+      if (foundWinner) {                       
+            setWinner(foundWinner)                                         
+            localStorage.setItem('winner', JSON.stringify(foundWinner)) 
             confetti()
         return
       }
     
-    const ganoLavieja = isDraw(newBoard) 
-    if (ganoLavieja) {
-      const ganadorVieja="La vieja"
-      setWinner(ganadorVieja)
-      localStorage.setItem('winner', JSON.stringify(ganadorVieja)) 
+    const draw = isDraw(newBoard) 
+    if (draw) {
+      const noWinner="Draw"
+      setWinner(noWinner)
+      localStorage.setItem('winner', JSON.stringify(noWinner)) 
       return
     }
   }
@@ -66,26 +66,27 @@ function App () {
   }
   return (
     <main className='body-structure'>
-      <div className='box-up-board-medio'>
-        <div className='board-medio'> {
-          board.map((contenidoB, index) => {
-            return (<span key={index} className='square' onClick={() => updateBoard(index)}>{contenidoB}</span>)
+      <div className='box-up-board-middle'>
+        <div className='board-middle'> {
+          board.map((cell, index) => {
+            return (<span key={index} className='square' translate="no"
+               onClick={() => updateBoard(index)}>{cell}</span>)
           })
         }
         </div>
-        <ResetBoard resetBoardF={cleanBoard} />
+        <ResetBoard onReset={cleanBoard} />
       </div>
       <div className='left-part'>
         <div className='box-turns'>
           <div>
-            Turnos
+            Turn
           </div>
-          <section className='turns'>
+          <section className="turns" translate="no">
             <div>{TURNS.O}</div>
             <div>{TURNS.X}</div>
           </section>
         </div>
-        <GetWinner   texto={winner} turn={turn}/>
+        <GetWinner   text={winner} turn={turn}/>
       </div>
     </main>
   )
